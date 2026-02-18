@@ -185,7 +185,7 @@ function increaseLove(){if(loveLevel<100){loveLevel+=100/loveMessages.length;doc
 function checkAnswer(correct){if(correct){document.getElementById("quizBox").innerHTML="I love you more! 😌";confettiBlast();createHeartParticle();}else{document.getElementById("quizBox").innerHTML="Hihi I love you more! 😌";}}
 
 // CHAT
-const chatMessages=["Hey Baby 😘","Happy Birthday my love! 🎉","You're the best girlfriend ever!","Wala akong masabi, ikaw na talaga gusto ko maging end game by.","I can't wait to see you later and kiss + hug you 🤗","You are my everything ❤️, I love you soooo much!"];
+const chatMessages=["Hey Baby 😘","Happy Birthday my love! 🎉","You're the best girlfriend ever!","Wala akong masabi, ikaw na talaga gusto ko maging end game by.","I can't wait to see you later and kiss + hug you 🤗","You are my everything, I love you soooo much!"];
 let chatIndex=0;
 function sendChat(){if(chatIndex<chatMessages.length){document.getElementById("chatBox").innerHTML+="<div>"+chatMessages[chatIndex]+"</div>";chatIndex++;confettiBlast();createHeartParticle();}}
 
