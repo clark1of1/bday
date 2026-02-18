@@ -6,129 +6,26 @@
 <title>Happy Birthday Queen 👑❤️</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-
-body{
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
-  color:white;
-  text-align:center;
-  overflow-x:hidden;
-  transition:background 1s ease;
-}
-
-/* Pulsating background animation */
-@keyframes pulseBG{
-  0%{background:linear-gradient(135deg,#ff758c,#ff7eb3);}
-  50%{background:linear-gradient(135deg,#ff7eb3,#ff758c);}
-  100%{background:linear-gradient(135deg,#ff758c,#ff7eb3);}
-}
-body.pulse{
-  animation:pulseBG 5s infinite;
-}
-
-section{
-  padding:60px 20px;
-  transition:all 0.6s ease;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:linear-gradient(135deg,#ff758c,#ff7eb3);color:white;text-align:center;overflow-x:hidden;transition:background 1s ease;}
+section{padding:60px 20px;transition:all 0.6s ease;}
 h1{font-size:3rem;}
 h2{margin-bottom:20px;}
-
-.card{
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(12px);
-  padding:25px;
-  border-radius:20px;
-  max-width:700px;
-  margin:15px auto;
-  transition: all 0.6s ease, box-shadow 0.5s ease;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
-
-.card:hover{
-  box-shadow:0 0 20px rgba(255,255,255,0.5);
-}
-
-button{
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
-  background:white;
-  color:#ff4e78;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.5s all ease, box-shadow 0.5s ease;
-  margin:10px;
-}
-
-button:hover{
-  transform:scale(1.1);
-  box-shadow: 0 0 15px #fff, 0 0 20px #ff4e78;
-}
-
+.card{background:rgba(255,255,255,0.15);backdrop-filter:blur(12px);padding:25px;border-radius:20px;max-width:700px;margin:15px auto;transition: all 0.6s ease, box-shadow 0.5s ease;box-shadow:0 0 10px rgba(255,255,255,0.2);}
+.card:hover{box-shadow:0 0 20px rgba(255,255,255,0.5);}
+button{padding:12px 25px;border:none;border-radius:30px;background:white;color:#ff4e78;font-weight:bold;cursor:pointer;transition:0.5s all ease, box-shadow 0.5s ease;margin:10px;}
+button:hover{transform:scale(1.1);box-shadow:0 0 15px #fff,0 0 20px #ff4e78;}
 .hidden{display:none;}
-
-/* Love Meter */
-.meter{
-  width:80%;
-  max-width:400px;
-  height:20px;
-  background:white;
-  border-radius:20px;
-  margin:15px auto;
-  overflow:hidden;
-  transition: all 0.6s ease;
-}
-
-.fill{
-  height:100%;
-  width:0%;
-  background:#ff4e78;
-  transition:width 0.6s ease;
-}
-
-/* Floating hearts */
-.heart{
-  position:fixed;
-  bottom:-10px;
-  animation:float 6s linear infinite;
-}
-
-@keyframes float{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-100vh);opacity:0;}
-}
-
-/* Heart particles for touch */
-.heartParticle{
-  position:absolute;
-  pointer-events:none;
-  animation:floatUp 2s forwards;
-  font-size:18px;
-}
-
-@keyframes floatUp{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-80px);opacity:0;}
-}
-
-.chatBox{
-  background:rgba(255,255,255,0.15);
-  padding:15px;
-  border-radius:15px;
-  max-width:400px;
-  margin:10px auto;
-  text-align:left;
-  transition:all 0.5s ease;
-}
+.meter{width:80%;max-width:400px;height:20px;background:white;border-radius:20px;margin:15px auto;overflow:hidden;transition: all 0.6s ease;}
+.fill{height:100%;width:0%;background:#ff4e78;transition:width 0.6s ease;}
+.heart{position:fixed;bottom:-10px;animation:float 6s linear infinite;}
+@keyframes float{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-100vh);opacity:0;}}
+.heartParticle{position:absolute;pointer-events:none;animation:floatUp 2s forwards;font-size:18px;}
+@keyframes floatUp{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-80px);opacity:0;}}
+.chatBox{background:rgba(255,255,255,0.15);padding:15px;border-radius:15px;max-width:400px;margin:10px auto;text-align:left;transition:all 0.5s ease;}
 </style>
 </head>
-<body class="pulse">
+<body>
 
 <!-- HERO -->
 <section>
@@ -136,15 +33,15 @@ button:hover{
 <p id="typewriter"></p>
 </section>
 
-<!-- MOOD CHANGER (top) -->
+<!-- MOOD CHANGER -->
 <section>
 <h2>Change The Mood 🌈</h2>
-<button onclick="changeMood('#ff758c','#ff7eb3')">Romantic</button>
-<button onclick="changeMood('#667eea','#764ba2')">Dreamy</button>
-<button onclick="changeMood('#ff9966','#ff5e62')">Warm</button>
+<button onclick="setMood('#ff758c','#ff7eb3')">Romantic</button>
+<button onclick="setMood('#667eea','#764ba2')">Dreamy</button>
+<button onclick="setMood('#ff9966','#ff5e62')">Warm</button>
 </section>
 
-<!-- LOVE MESSAGE REVEAL -->
+<!-- LOVE MESSAGE -->
 <section>
 <h2>Special Message 💌</h2>
 <div class="card hidden" id="secretMessage">
@@ -154,7 +51,7 @@ Every day with you feels like a blessing.
 <button onclick="revealMessage()">Reveal Message 💖</button>
 </section>
 
-<!-- LOVE GENERATOR -->
+<!-- WHY I LOVE YOU -->
 <section>
 <h2>Why I Love You 💕</h2>
 <div class="card" id="loveReason">Click below 😌</div>
@@ -171,14 +68,12 @@ Every day with you feels like a blessing.
 <!-- LOVE METER -->
 <section>
 <h2>How Much Do I Love You? 💗</h2>
-<div class="meter">
-  <div class="fill" id="loveFill"></div>
-</div>
+<div class="meter"><div class="fill" id="loveFill"></div></div>
 <div class="card" id="loveDetails">Click the button to see why I love you more 😌</div>
 <button onclick="increaseLove()">Increase Love</button>
 </section>
 
-<!-- MINI QUIZ -->
+<!-- QUIZ -->
 <section>
 <h2>How Well Do You Know Us? 🧠</h2>
 <div class="card" id="quizBox">
@@ -189,7 +84,7 @@ What day is your birthday? 😏
 </div>
 </section>
 
-<!-- LOVE CHAT SIMULATOR -->
+<!-- CHAT -->
 <section>
 <h2>Chat With Me 💬</h2>
 <div class="chatBox" id="chatBox">Click below to see my messages 💌</div>
@@ -198,24 +93,30 @@ What day is your birthday? 😏
 
 <script>
 /* ================= TYPEWRITER ================= */
-const text = "The world became brighter the day you were born. Today is all about you.";
-let index = 0;
-function typeWriter(){
-  if(index < text.length){
-    document.getElementById("typewriter").innerHTML += text.charAt(index);
-    index++;
-    setTimeout(typeWriter,40);
-  }
-}
+const text="The world became brighter the day you were born. Today is all about you.";
+let index=0;
+function typeWriter(){if(index<text.length){document.getElementById("typewriter").innerHTML+=text.charAt(index);index++;setTimeout(typeWriter,40);}}
 typeWriter();
 
-/* ================= MESSAGE REVEAL ================= */
-function revealMessage(){
-  document.getElementById("secretMessage").classList.remove("hidden");
-  createHeartParticle();
+/* ================= MOOD CHANGER ================= */
+let currentGradient=['#ff758c','#ff7eb3'];
+function setMood(color1,color2){
+  currentGradient=[color1,color2];
+  document.body.style.background=`linear-gradient(135deg,${color1},${color2})`;
 }
 
-/* ================= LOVE GENERATOR ================= */
+/* ================= PULSATING BACKGROUND ================= */
+let pulseDir=1;
+setInterval(()=>{
+  let c1=parseInt(currentGradient[0].replace('#','0x'),16);
+  let c2=parseInt(currentGradient[1].replace('#','0x'),16);
+  document.body.style.background=`linear-gradient(135deg,${currentGradient[0]},${currentGradient[1]})`;
+},1000/60);
+
+/* ================= MESSAGE REVEAL ================= */
+function revealMessage(){document.getElementById("secretMessage").classList.remove("hidden");createHeartParticle();}
+
+/* ================= LOVE REASONS ================= */
 const reasons=[
 "You make my world brighter.",
 "Your smile heals my bad days.",
@@ -226,14 +127,13 @@ const reasons=[
 "You are my greatest blessing."
 ];
 function generateLove(){
-  const random = reasons[Math.floor(Math.random()*reasons.length)];
-  document.getElementById("loveReason").innerText = random;
-  document.getElementById("loveBtn").innerText = "Click More 💗";
-  confettiBlast();
-  createHeartParticle();
+  const random=reasons[Math.floor(Math.random()*reasons.length)];
+  document.getElementById("loveReason").innerText=random;
+  document.getElementById("loveBtn").innerText="Click More 💗";
+  confettiBlast();createHeartParticle();
 }
 
-/* ================= FORTUNE GENERATOR ================= */
+/* ================= FORTUNE ================= */
 const fortunes=[
 "We will travel the world together.",
 "We will celebrate many birthdays side by side.",
@@ -242,126 +142,62 @@ const fortunes=[
 "Our love will only grow stronger each year."
 ];
 function generateFortune(){
-  const random = fortunes[Math.floor(Math.random()*fortunes.length)];
-  document.getElementById("fortune").innerText = random;
-  document.getElementById("fortuneBtn").innerText = "Click More 🔮";
-  confettiBlast();
-  createHeartParticle();
+  const random=fortunes[Math.floor(Math.random()*fortunes.length)];
+  document.getElementById("fortune").innerText=random;
+  document.getElementById("fortuneBtn").innerText="Click More 🔮";
+  confettiBlast();createHeartParticle();
 }
 
 /* ================= LOVE METER ================= */
-let loveLevel = 0;
-const loveMessages = [
-  "I love your smile 😍",
-  "I love the way you care for me 💕",
-  "I love your laughter that brightens my days 😂",
-  "I love your strength and courage 💪",
-  "I love how you make ordinary moments magical ✨",
-  "I love your heart, pure and kind ❤️",
-  "I love you more than words can ever say 💖"
+let loveLevel=0;
+const loveMessages=[
+"I love your smile 😍",
+"I love the way you care for me 💕",
+"I love your laughter that brightens my days 😂",
+"I love your strength and courage 💪",
+"I love how you make ordinary moments magical ✨",
+"I love your heart, pure and kind ❤️",
+"I love you more than words can ever say 💖"
 ];
 function increaseLove(){
-  if(loveLevel < 100){
-    loveLevel += 100 / loveMessages.length;
-    document.getElementById("loveFill").style.width = loveLevel + "%";
-    const index = Math.floor(loveLevel / (100 / loveMessages.length)) - 1;
-    document.getElementById("loveDetails").innerText = loveMessages[index];
-    confettiBlast();
-    createHeartParticle();
-  }
+  if(loveLevel<100){loveLevel+=100/loveMessages.length;
+  document.getElementById("loveFill").style.width=loveLevel+"%";
+  const idx=Math.floor(loveLevel/(100/loveMessages.length))-1;
+  document.getElementById("loveDetails").innerText=loveMessages[idx];
+  confettiBlast();createHeartParticle();}
 }
 
 /* ================= QUIZ ================= */
 function checkAnswer(correct){
-  if(correct){
-    document.getElementById("quizBox").innerHTML =
-    "Correct 😌 Of course you know your birthday. I love you!";
-    confettiBlast();
-    createHeartParticle();
-  }else{
-    document.getElementById("quizBox").innerHTML =
-    "Wrong 😅 but it's okay, I still love you.";
-  }
+  if(correct){document.getElementById("quizBox").innerHTML="Correct 😌 Of course you know your birthday. I love you!";confettiBlast();createHeartParticle();}
+  else{document.getElementById("quizBox").innerHTML="Wrong 😅 but it's okay, I still love you.";}
 }
 
-/* ================= MOOD CHANGER ================= */
-function changeMood(color1,color2){
-  document.body.style.background = `linear-gradient(135deg,${color1},${color2})`;
-}
-
-/* ================= FLOATING HEARTS ================= */
-setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=Math.random()*20+20+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>{heart.remove();},6000);
-},600);
-
-/* ================= CONFETTI ================= */
-function confettiBlast(){
-  for(let i=0;i<30;i++){
-    const c=document.createElement("div");
-    c.classList.add("heart");
-    c.style.left=Math.random()*100+"vw";
-    c.style.fontSize=Math.random()*20+20+"px";
-    document.body.appendChild(c);
-    setTimeout(()=>{c.remove();},1000 + Math.random()*1000);
-  }
-}
-
-/* ================= CHAT SIMULATOR ================= */
+/* ================= CHAT ================= */
 const chatMessages=[
 "Hey Queen 😘",
 "Happy Birthday my love! 🎉",
 "You're my sunshine on dark days 🌞",
 "Every moment with you is magical ✨",
 "I can't wait to see you and hug you 🤗",
-"You are my everything ❤️"
-];
-let chatIndex = 0;
-function sendChat(){
-  if(chatIndex < chatMessages.length){
-    const box=document.getElementById("chatBox");
-    box.innerHTML += "<div>"+chatMessages[chatIndex]+"</div>";
-    chatIndex++;
-    confettiBlast();
-    createHeartParticle();
-  }
-}
+"You are my everything ❤️"];
+let chatIndex=0;
+function sendChat(){if(chatIndex<chatMessages.length){document.getElementById("chatBox").innerHTML+="<div>"+chatMessages[chatIndex]+"</div>";chatIndex++;confettiBlast();createHeartParticle();}}
 
-/* ================= HEART PARTICLES FOLLOW TOUCH ================= */
+/* ================= FLOATING HEARTS ================= */
+setInterval(()=>{const h=document.createElement("div");h.classList.add("heart");h.innerHTML="❤️";h.style.left=Math.random()*100+"vw";h.style.fontSize=Math.random()*20+20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),6000);},600);
+
+/* ================= CONFETTI ================= */
+function confettiBlast(){for(let i=0;i<30;i++){const c=document.createElement("div");c.classList.add("heart");c.style.left=Math.random()*100+"vw";c.style.fontSize=Math.random()*20+20+"px";document.body.appendChild(c);setTimeout(()=>c.remove(),1000+Math.random()*1000);}}
+
+ /* ================= HEART PARTICLE ================= */
+document.body.addEventListener('mousemove',e=>{for(let i=0;i<1;i++){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=e.pageX+"px";p.style.top=e.pageY+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}});
+
 let touchInterval;
-document.body.addEventListener('touchstart', e=>{
-  touchInterval = setInterval(()=>{
-    for(let t of e.touches){
-      const p = document.createElement('div');
-      p.classList.add('heartParticle');
-      p.style.left = t.pageX + "px";
-      p.style.top = t.pageY + "px";
-      p.innerHTML = "❤️";
-      document.body.appendChild(p);
-      setTimeout(()=>p.remove(),2000);
-    }
-  },100);
-});
+document.body.addEventListener('touchstart',e=>{touchInterval=setInterval(()=>{for(let t of e.touches){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=t.pageX+"px";p.style.top=t.pageY+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}},100);});
+document.body.addEventListener('touchend',e=>{clearInterval(touchInterval);});
 
-document.body.addEventListener('touchend', e=>{
-  clearInterval(touchInterval);
-});
-
-/* ================= HELPER: CREATE HEART PARTICLE ================= */
-function createHeartParticle(){
-  const p=document.createElement('div');
-  p.classList.add('heartParticle');
-  p.style.left=(Math.random()*window.innerWidth)+"px";
-  p.style.top=(window.innerHeight-50)+"px";
-  p.innerHTML="❤️";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),2000);
-}
+function createHeartParticle(){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=(Math.random()*window.innerWidth)+"px";p.style.top=(window.innerHeight-50)+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}
 </script>
 </body>
 </html>
