@@ -10,14 +10,15 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
 }
 
 body{
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
   color:white;
   text-align:center;
   overflow-x:hidden;
+  transition:0.5s;
 }
 
 section{
@@ -34,10 +35,10 @@ h2{
 
 .card{
   background:rgba(255,255,255,0.2);
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(12px);
   padding:25px;
   border-radius:20px;
-  max-width:750px;
+  max-width:700px;
   margin:15px auto;
 }
 
@@ -50,7 +51,7 @@ button{
   font-weight:bold;
   cursor:pointer;
   transition:0.3s;
-  margin-top:15px;
+  margin:10px;
 }
 
 button:hover{
@@ -61,30 +62,22 @@ button:hover{
   display:none;
 }
 
-/* Modal */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-
-.modal-content{
-  background:white;
-  color:#ff4e78;
-  padding:30px;
-  border-radius:20px;
+/* Love Meter */
+.meter{
+  width:80%;
   max-width:400px;
-  text-align:center;
+  height:20px;
+  background:white;
+  border-radius:20px;
+  margin:15px auto;
+  overflow:hidden;
 }
 
-.close-btn{
-  margin-top:15px;
+.fill{
+  height:100%;
+  width:0%;
   background:#ff4e78;
-  color:white;
+  transition:0.4s;
 }
 
 /* Floating Hearts */
@@ -106,105 +99,90 @@ button:hover{
 <!-- HERO -->
 <section>
 <h1>Happy Birthday, My Queen 👑❤️</h1>
-<p>The world became more beautiful the day you were born.</p>
-<button onclick="scrollToSection('letter')">Open My Heart 💌</button>
+<p id="typewriter"></p>
 </section>
 
-<!-- LETTER -->
-<section id="letter">
-<h2>A Letter For You 💖</h2>
-<div class="card">
-My Queen,<br><br>
-You are my peace in chaos.  
-My happiness on dark days.  
-My comfort when life gets heavy.  
-<br><br>
-Loving you feels natural. Effortless. Real.
-You inspire me to be better.
-You make my world feel complete.
-<br><br>
-On your birthday, I just want you to know:
-You are deeply loved.
-You are appreciated.
-And you are my greatest blessing.
+<!-- LOVE MESSAGE REVEAL -->
+<section>
+<h2>Special Message 💌</h2>
+<div class="card hidden" id="secretMessage">
+You are my peace, my happiness, and the best thing that ever happened to me.
+Every day with you feels like a blessing.
 </div>
+<button onclick="revealMessage()">Reveal Message 💖</button>
 </section>
 
-<!-- WHY I LOVE YOU -->
+<!-- LOVE GENERATOR -->
 <section>
 <h2>Why I Love You 💕</h2>
-<div class="card" id="loveReason">Click below to see why 😌</div>
-<button onclick="generateLove()">Tell Me Why 💗</button>
+<div class="card" id="loveReason">Click below 😌</div>
+<button onclick="generateLove()">Tell Me Why</button>
 </section>
 
-<!-- OPEN WHEN LETTERS -->
+<!-- LOVE FORTUNE -->
 <section>
-<h2>Open When... 💌</h2>
-
-<button onclick="toggle('sad')">You're Sad</button>
-<div id="sad" class="card hidden">
-Even on your worst days, you are still the most amazing woman I know. I will always be here.
-</div>
-
-<button onclick="toggle('miss')">You Miss Me</button>
-<div id="miss" class="card hidden">
-Imagine me holding your hand and telling you everything will be okay. I miss you too.
-</div>
-
-<button onclick="toggle('doubt')">You Doubt Yourself</button>
-<div id="doubt" class="card hidden">
-You are strong, capable, and beautiful beyond words. Never question your worth.
-</div>
-
+<h2>Love Fortune 🔮</h2>
+<div class="card" id="fortune">Click to see our future 👀</div>
+<button onclick="generateFortune()">Reveal Our Future</button>
 </section>
 
-<!-- FUTURE -->
+<!-- LOVE METER -->
 <section>
-<h2>Our Future Together 🌹</h2>
-<div class="card">
-I see more birthdays together.  
-More laughs.  
-More late-night talks.  
-More dreams turning into reality.  
-And no matter what happens, I promise to always choose you.
+<h2>How Much Do I Love You? 💗</h2>
+<div class="meter">
+  <div class="fill" id="loveFill"></div>
 </div>
+<button onclick="increaseLove()">Increase Love</button>
 </section>
 
-<!-- FINAL SURPRISE -->
+<!-- MINI QUIZ -->
 <section>
-<h2>Final Surprise 🎁</h2>
-<button onclick="showSurprise()">Click Me 👀</button>
+<h2>How Well Do You Know Us? 🧠</h2>
+<div class="card" id="quizBox">
+What day is your birthday? 😏
+<br><br>
+<button onclick="checkAnswer(true)">February 19</button>
+<button onclick="checkAnswer(false)">February 14</button>
+</div>
 </section>
 
-<!-- MODAL -->
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <h3>I Choose You ❤️</h3>
-    <p>
-      Not just today.  
-      Not just on your birthday.  
-      But every single day.
-    </p>
-    <button class="close-btn" onclick="closeModal()">Close</button>
-  </div>
-</div>
+<!-- MOOD CHANGER -->
+<section>
+<h2>Change The Mood 🌈</h2>
+<button onclick="changeMood('#ff758c','#ff7eb3')">Romantic</button>
+<button onclick="changeMood('#667eea','#764ba2')">Dreamy</button>
+<button onclick="changeMood('#ff9966','#ff5e62')">Warm</button>
+</section>
 
 <script>
 
-// Scroll
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+// Typewriter Effect
+const text = "The world became brighter the day you were born. Today is all about you.";
+let index = 0;
+
+function typeWriter(){
+  if(index < text.length){
+    document.getElementById("typewriter").innerHTML += text.charAt(index);
+    index++;
+    setTimeout(typeWriter,40);
+  }
+}
+typeWriter();
+
+// Reveal Message
+function revealMessage(){
+  document.getElementById("secretMessage").classList.remove("hidden");
 }
 
-// Love generator
+// Love Generator
 const reasons=[
 "You make my world brighter.",
-"Your smile fixes my bad days.",
-"You care so deeply.",
-"You understand me like no one else.",
+"Your smile heals my bad days.",
+"You understand me deeply.",
+"You inspire me to be better.",
 "You are beautiful inside and out.",
-"You support my dreams.",
-"You make love feel safe and real."
+"You make love feel safe.",
+"You are my greatest blessing."
 ];
 
 function generateLove(){
@@ -212,18 +190,44 @@ function generateLove(){
   document.getElementById("loveReason").innerText = random;
 }
 
-// Toggle letters
-function toggle(id){
-  document.getElementById(id).classList.toggle("hidden");
+// Fortune Generator
+const fortunes=[
+"We will travel the world together.",
+"We will celebrate many birthdays side by side.",
+"We will achieve our dreams together.",
+"We will build something beautiful together.",
+"Our love will only grow stronger each year."
+];
+
+function generateFortune(){
+  const random = fortunes[Math.floor(Math.random()*fortunes.length)];
+  document.getElementById("fortune").innerText = random;
 }
 
-// Modal fix
-function showSurprise(){
-  document.getElementById("modal").classList.remove("hidden");
+// Love Meter
+let loveLevel = 0;
+
+function increaseLove(){
+  if(loveLevel < 100){
+    loveLevel += 10;
+    document.getElementById("loveFill").style.width = loveLevel + "%";
+  }
 }
 
-function closeModal(){
-  document.getElementById("modal").classList.add("hidden");
+// Quiz
+function checkAnswer(correct){
+  if(correct){
+    document.getElementById("quizBox").innerHTML =
+    "Correct 😌 Of course you know your birthday. I love you!";
+  }else{
+    document.getElementById("quizBox").innerHTML =
+    "Wrong 😅 but it's okay, I still love you.";
+  }
+}
+
+// Mood changer
+function changeMood(color1,color2){
+  document.body.style.background = `linear-gradient(135deg,${color1},${color2})`;
 }
 
 // Floating hearts
@@ -236,7 +240,7 @@ setInterval(()=>{
   document.body.appendChild(heart);
 
   setTimeout(()=>{heart.remove();},6000);
-},500);
+},600);
 
 </script>
 
