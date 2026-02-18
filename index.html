@@ -21,22 +21,23 @@ body{
   transition:background 1s ease;
 }
 
+/* Pulsating background animation */
+@keyframes pulseBG{
+  0%{background:linear-gradient(135deg,#ff758c,#ff7eb3);}
+  50%{background:linear-gradient(135deg,#ff7eb3,#ff758c);}
+  100%{background:linear-gradient(135deg,#ff758c,#ff7eb3);}
+}
+body.pulse{
+  animation:pulseBG 5s infinite;
+}
+
 section{
   padding:60px 20px;
   transition:all 0.6s ease;
 }
 
-h1{
-  font-size:3rem;
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff7eb3, 0 0 30px #ff758c;
-  transition: text-shadow 1s ease;
-}
-
-h2{
-  margin-bottom:20px;
-  text-shadow: 0 0 5px #fff;
-  transition: text-shadow 0.8s ease;
-}
+h1{font-size:3rem;}
+h2{margin-bottom:20px;}
 
 .card{
   background:rgba(255,255,255,0.15);
@@ -63,7 +64,6 @@ button{
   cursor:pointer;
   transition:0.5s all ease, box-shadow 0.5s ease;
   margin:10px;
-  text-shadow:0 0 3px #fff;
 }
 
 button:hover{
@@ -71,9 +71,7 @@ button:hover{
   box-shadow: 0 0 15px #fff, 0 0 20px #ff4e78;
 }
 
-.hidden{
-  display:none;
-}
+.hidden{display:none;}
 
 /* Love Meter */
 .meter{
@@ -106,7 +104,7 @@ button:hover{
   100%{transform:translateY(-100vh);opacity:0;}
 }
 
-/* Heart particles following mouse */
+/* Heart particles for touch */
 .heartParticle{
   position:absolute;
   pointer-events:none;
@@ -119,10 +117,18 @@ button:hover{
   100%{transform:translateY(-80px);opacity:0;}
 }
 
-.chatBox{background:rgba(255,255,255,0.15);padding:15px;border-radius:15px;max-width:400px;margin:10px auto;text-align:left;transition:all 0.5s ease;}
+.chatBox{
+  background:rgba(255,255,255,0.15);
+  padding:15px;
+  border-radius:15px;
+  max-width:400px;
+  margin:10px auto;
+  text-align:left;
+  transition:all 0.5s ease;
+}
 </style>
 </head>
-<body>
+<body class="pulse">
 
 <!-- HERO -->
 <section>
@@ -130,7 +136,7 @@ button:hover{
 <p id="typewriter"></p>
 </section>
 
-<!-- MOOD CHANGER (moved to top) -->
+<!-- MOOD CHANGER (top) -->
 <section>
 <h2>Change The Mood 🌈</h2>
 <button onclick="changeMood('#ff758c','#ff7eb3')">Romantic</button>
@@ -326,17 +332,24 @@ function sendChat(){
   }
 }
 
-/* ================= HEART PARTICLES FOLLOW MOUSE ================= */
-document.body.addEventListener('mousemove', e=>{
-  for(let i=0;i<1;i++){
-    const p=document.createElement('div');
-    p.classList.add('heartParticle');
-    p.style.left=e.pageX+"px";
-    p.style.top=e.pageY+"px";
-    p.innerHTML="❤️";
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),2000);
-  }
+/* ================= HEART PARTICLES FOLLOW TOUCH ================= */
+let touchInterval;
+document.body.addEventListener('touchstart', e=>{
+  touchInterval = setInterval(()=>{
+    for(let t of e.touches){
+      const p = document.createElement('div');
+      p.classList.add('heartParticle');
+      p.style.left = t.pageX + "px";
+      p.style.top = t.pageY + "px";
+      p.innerHTML = "❤️";
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),2000);
+    }
+  },100);
+});
+
+document.body.addEventListener('touchend', e=>{
+  clearInterval(touchInterval);
 });
 
 /* ================= HELPER: CREATE HEART PARTICLE ================= */
