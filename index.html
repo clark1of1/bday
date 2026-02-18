@@ -7,7 +7,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#ff758c,#ff7eb3);color:white;text-align:center;overflow-x:hidden;transition:background 1s ease;}
+body{color:white;text-align:center;overflow-x:hidden;transition:background 1s ease;}
 section{padding:60px 20px;transition:all 0.6s ease;}
 h1{font-size:3rem;}
 h2{margin-bottom:20px;}
@@ -23,18 +23,29 @@ button:hover{transform:scale(1.1);box-shadow:0 0 15px #fff,0 0 20px #ff4e78;}
 .heartParticle{position:absolute;pointer-events:none;animation:floatUp 2s forwards;font-size:18px;}
 @keyframes floatUp{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-80px);opacity:0;}}
 .chatBox{background:rgba(255,255,255,0.15);padding:15px;border-radius:15px;max-width:400px;margin:10px auto;text-align:left;transition:all 0.5s ease;}
+#passwordScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ff758c,#ff7eb3);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
+#passwordScreen input{padding:12px 20px;border-radius:20px;border:none;margin:10px;font-size:1.1rem;}
+#passwordScreen button{padding:12px 20px;border-radius:20px;border:none;font-weight:bold;cursor:pointer;background:white;color:#ff4e78;}
 </style>
 </head>
 <body>
 
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+<h1>Enter Password 💖</h1>
+<input type="password" id="pwInput" placeholder="Type here..."/>
+<button onclick="checkPassword()">Enter</button>
+<p id="pwMsg"></p>
+</div>
+
 <!-- HERO -->
-<section>
+<section class="hidden">
 <h1>Happy Birthday, My Queen 👑❤️</h1>
 <p id="typewriter"></p>
 </section>
 
 <!-- MOOD CHANGER -->
-<section>
+<section class="hidden">
 <h2>Change The Mood 🌈</h2>
 <button onclick="setMood('#ff758c','#ff7eb3')">Romantic</button>
 <button onclick="setMood('#667eea','#764ba2')">Dreamy</button>
@@ -42,7 +53,7 @@ button:hover{transform:scale(1.1);box-shadow:0 0 15px #fff,0 0 20px #ff4e78;}
 </section>
 
 <!-- LOVE MESSAGE -->
-<section>
+<section class="hidden">
 <h2>Special Message 💌</h2>
 <div class="card hidden" id="secretMessage">
 You are my peace, my happiness, and the best thing that ever happened to me.
@@ -52,21 +63,21 @@ Every day with you feels like a blessing.
 </section>
 
 <!-- WHY I LOVE YOU -->
-<section>
+<section class="hidden">
 <h2>Why I Love You 💕</h2>
 <div class="card" id="loveReason">Click below 😌</div>
 <button id="loveBtn" onclick="generateLove()">Tell Me Why 💗</button>
 </section>
 
 <!-- LOVE FORTUNE -->
-<section>
+<section class="hidden">
 <h2>Love Fortune 🔮</h2>
 <div class="card" id="fortune">Click to see our future 👀</div>
 <button id="fortuneBtn" onclick="generateFortune()">Reveal Our Future 🔮</button>
 </section>
 
 <!-- LOVE METER -->
-<section>
+<section class="hidden">
 <h2>How Much Do I Love You? 💗</h2>
 <div class="meter"><div class="fill" id="loveFill"></div></div>
 <div class="card" id="loveDetails">Click the button to see why I love you more 😌</div>
@@ -74,7 +85,7 @@ Every day with you feels like a blessing.
 </section>
 
 <!-- QUIZ -->
-<section>
+<section class="hidden">
 <h2>How Well Do You Know Us? 🧠</h2>
 <div class="card" id="quizBox">
 What day is your birthday? 😏
@@ -85,18 +96,56 @@ What day is your birthday? 😏
 </section>
 
 <!-- CHAT -->
-<section>
+<section class="hidden">
 <h2>Chat With Me 💬</h2>
 <div class="chatBox" id="chatBox">Click below to see my messages 💌</div>
 <button onclick="sendChat()">Next Message 💬</button>
 </section>
 
 <script>
+/* ================= PASSWORD ================= */
+const PASSWORD = "queen19"; // change this if you want
+const passwordScreen=document.getElementById('passwordScreen');
+const pwInput=document.getElementById('pwInput');
+const pwMsg=document.getElementById('pwMsg');
+
+function checkPassword(){
+  if(pwInput.value===PASSWORD){
+    localStorage.setItem('accessGranted','true');
+    unlockSite();
+  }else{
+    pwMsg.innerText="Wrong password 😅 Try again!";
+    pwInput.value="";
+  }
+}
+
+// Check on load
+window.onload=function(){
+  if(localStorage.getItem('accessGranted')==='true'){
+    unlockSite();
+  }
+}
+
+function unlockSite(){
+  passwordScreen.style.display='none';
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('hidden'));
+  startTypewriter();
+  startBackgroundPulse();
+}
+
 /* ================= TYPEWRITER ================= */
 const text="The world became brighter the day you were born. Today is all about you.";
 let index=0;
-function typeWriter(){if(index<text.length){document.getElementById("typewriter").innerHTML+=text.charAt(index);index++;setTimeout(typeWriter,40);}}
-typeWriter();
+function startTypewriter(){
+  function typeWriter(){
+    if(index<text.length){
+      document.getElementById("typewriter").innerHTML+=text.charAt(index);
+      index++;
+      setTimeout(typeWriter,40);
+    }
+  }
+  typeWriter();
+}
 
 /* ================= MOOD CHANGER ================= */
 let currentGradient=['#ff758c','#ff7eb3'];
@@ -106,97 +155,54 @@ function setMood(color1,color2){
 }
 
 /* ================= PULSATING BACKGROUND ================= */
-let pulseDir=1;
-setInterval(()=>{
-  let c1=parseInt(currentGradient[0].replace('#','0x'),16);
-  let c2=parseInt(currentGradient[1].replace('#','0x'),16);
-  document.body.style.background=`linear-gradient(135deg,${currentGradient[0]},${currentGradient[1]})`;
-},1000/60);
-
-/* ================= MESSAGE REVEAL ================= */
-function revealMessage(){document.getElementById("secretMessage").classList.remove("hidden");createHeartParticle();}
-
-/* ================= LOVE REASONS ================= */
-const reasons=[
-"You make my world brighter.",
-"Your smile heals my bad days.",
-"You understand me deeply.",
-"You inspire me to be better.",
-"You are beautiful inside and out.",
-"You make love feel safe.",
-"You are my greatest blessing."
-];
-function generateLove(){
-  const random=reasons[Math.floor(Math.random()*reasons.length)];
-  document.getElementById("loveReason").innerText=random;
-  document.getElementById("loveBtn").innerText="Click More 💗";
-  confettiBlast();createHeartParticle();
+function startBackgroundPulse(){
+  let pulse=0; let dir=1;
+  setInterval(()=>{
+    pulse+=dir*0.01;
+    if(pulse>1){dir=-1;}
+    if(pulse<0){dir=1;}
+    document.body.style.background=`linear-gradient(135deg,${currentGradient[0]},${currentGradient[1]})`;
+  },16);
 }
 
-/* ================= FORTUNE ================= */
-const fortunes=[
-"We will travel the world together.",
-"We will celebrate many birthdays side by side.",
-"We will achieve our dreams together.",
-"We will build something beautiful together.",
-"Our love will only grow stronger each year."
-];
-function generateFortune(){
-  const random=fortunes[Math.floor(Math.random()*fortunes.length)];
-  document.getElementById("fortune").innerText=random;
-  document.getElementById("fortuneBtn").innerText="Click More 🔮";
-  confettiBlast();createHeartParticle();
-}
+/* ================= OTHER GAME FUNCTIONS ================= */
+// love, fortune, meter, chat, quiz, hearts (reuse previous code)...
 
-/* ================= LOVE METER ================= */
+// LOVE REASONS
+const reasons=["You make my world brighter.","Your smile heals my bad days.","You understand me deeply.","You inspire me to be better.","You are beautiful inside and out.","You make love feel safe.","You are my greatest blessing."];
+function generateLove(){const random=reasons[Math.floor(Math.random()*reasons.length)];document.getElementById("loveReason").innerText=random;document.getElementById("loveBtn").innerText="Click More 💗";confettiBlast();createHeartParticle();}
+
+// LOVE FORTUNE
+const fortunes=["We will travel the world together.","We will celebrate many birthdays side by side.","We will achieve our dreams together.","We will build something beautiful together.","Our love will only grow stronger each year."];
+function generateFortune(){const random=fortunes[Math.floor(Math.random()*fortunes.length)];document.getElementById("fortune").innerText=random;document.getElementById("fortuneBtn").innerText="Click More 🔮";confettiBlast();createHeartParticle();}
+
+// LOVE METER
 let loveLevel=0;
-const loveMessages=[
-"I love your smile 😍",
-"I love the way you care for me 💕",
-"I love your laughter that brightens my days 😂",
-"I love your strength and courage 💪",
-"I love how you make ordinary moments magical ✨",
-"I love your heart, pure and kind ❤️",
-"I love you more than words can ever say 💖"
-];
-function increaseLove(){
-  if(loveLevel<100){loveLevel+=100/loveMessages.length;
-  document.getElementById("loveFill").style.width=loveLevel+"%";
-  const idx=Math.floor(loveLevel/(100/loveMessages.length))-1;
-  document.getElementById("loveDetails").innerText=loveMessages[idx];
-  confettiBlast();createHeartParticle();}
-}
+const loveMessages=["I love your smile 😍","I love the way you care for me 💕","I love your laughter that brightens my days 😂","I love your strength and courage 💪","I love how you make ordinary moments magical ✨","I love your heart, pure and kind ❤️","I love you more than words can ever say 💖"];
+function increaseLove(){if(loveLevel<100){loveLevel+=100/loveMessages.length;document.getElementById("loveFill").style.width=loveLevel+"%";const idx=Math.floor(loveLevel/(100/loveMessages.length))-1;document.getElementById("loveDetails").innerText=loveMessages[idx];confettiBlast();createHeartParticle();}}
 
-/* ================= QUIZ ================= */
-function checkAnswer(correct){
-  if(correct){document.getElementById("quizBox").innerHTML="Correct 😌 Of course you know your birthday. I love you!";confettiBlast();createHeartParticle();}
-  else{document.getElementById("quizBox").innerHTML="Wrong 😅 but it's okay, I still love you.";}
-}
+// QUIZ
+function checkAnswer(correct){if(correct){document.getElementById("quizBox").innerHTML="Correct 😌 Of course you know your birthday. I love you!";confettiBlast();createHeartParticle();}else{document.getElementById("quizBox").innerHTML="Wrong 😅 but it's okay, I still love you.";}}
 
-/* ================= CHAT ================= */
-const chatMessages=[
-"Hey Queen 😘",
-"Happy Birthday my love! 🎉",
-"You're my sunshine on dark days 🌞",
-"Every moment with you is magical ✨",
-"I can't wait to see you and hug you 🤗",
-"You are my everything ❤️"];
+// CHAT
+const chatMessages=["Hey Queen 😘","Happy Birthday my love! 🎉","You're my sunshine on dark days 🌞","Every moment with you is magical ✨","I can't wait to see you and hug you 🤗","You are my everything ❤️"];
 let chatIndex=0;
 function sendChat(){if(chatIndex<chatMessages.length){document.getElementById("chatBox").innerHTML+="<div>"+chatMessages[chatIndex]+"</div>";chatIndex++;confettiBlast();createHeartParticle();}}
 
-/* ================= FLOATING HEARTS ================= */
+// FLOATING HEARTS
 setInterval(()=>{const h=document.createElement("div");h.classList.add("heart");h.innerHTML="❤️";h.style.left=Math.random()*100+"vw";h.style.fontSize=Math.random()*20+20+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),6000);},600);
 
-/* ================= CONFETTI ================= */
+// CONFETTI
 function confettiBlast(){for(let i=0;i<30;i++){const c=document.createElement("div");c.classList.add("heart");c.style.left=Math.random()*100+"vw";c.style.fontSize=Math.random()*20+20+"px";document.body.appendChild(c);setTimeout(()=>c.remove(),1000+Math.random()*1000);}}
 
- /* ================= HEART PARTICLE ================= */
+// HEART PARTICLE
 document.body.addEventListener('mousemove',e=>{for(let i=0;i<1;i++){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=e.pageX+"px";p.style.top=e.pageY+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}});
-
 let touchInterval;
 document.body.addEventListener('touchstart',e=>{touchInterval=setInterval(()=>{for(let t of e.touches){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=t.pageX+"px";p.style.top=t.pageY+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}},100);});
 document.body.addEventListener('touchend',e=>{clearInterval(touchInterval);});
 
+// REVEAL MESSAGE HELPER
+function revealMessage(){document.getElementById("secretMessage").classList.remove("hidden");createHeartParticle();}
 function createHeartParticle(){const p=document.createElement('div');p.classList.add('heartParticle');p.style.left=(Math.random()*window.innerWidth)+"px";p.style.top=(window.innerHeight-50)+"px";p.innerHTML="❤️";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}
 </script>
 </body>
