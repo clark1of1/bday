@@ -57,35 +57,19 @@ button:hover{
   transform:scale(1.1);
 }
 
-#countdown{
-  font-size:1.8rem;
-  margin-top:20px;
-}
-
-.timeline{
-  text-align:left;
-  max-width:700px;
-  margin:auto;
-}
-
-.timeline div{
-  margin:20px 0;
-}
-
 .hidden{
   display:none;
 }
 
+/* Modal */
 .modal{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:rgba(0,0,0,0.7);
   display:flex;
   justify-content:center;
   align-items:center;
+  z-index:1000;
 }
 
 .modal-content{
@@ -94,8 +78,16 @@ button:hover{
   padding:30px;
   border-radius:20px;
   max-width:400px;
+  text-align:center;
 }
 
+.close-btn{
+  margin-top:15px;
+  background:#ff4e78;
+  color:white;
+}
+
+/* Floating Hearts */
 .heart{
   position:fixed;
   bottom:-10px;
@@ -114,14 +106,8 @@ button:hover{
 <!-- HERO -->
 <section>
 <h1>Happy Birthday, My Queen 👑❤️</h1>
-<p>The world became brighter on February 19 because you were born.</p>
+<p>The world became more beautiful the day you were born.</p>
 <button onclick="scrollToSection('letter')">Open My Heart 💌</button>
-</section>
-
-<!-- COUNTDOWN -->
-<section>
-<h2>Countdown To Your Day 🎂</h2>
-<div id="countdown"></div>
 </section>
 
 <!-- LETTER -->
@@ -129,31 +115,18 @@ button:hover{
 <h2>A Letter For You 💖</h2>
 <div class="card">
 My Queen,<br><br>
-You are not just my girlfriend.  
-You are my safe place.  
-My peace.  
-My answered prayer.  
+You are my peace in chaos.  
+My happiness on dark days.  
+My comfort when life gets heavy.  
 <br><br>
-Every laugh we share, every small moment, every late night talk —  
-they are treasures I will forever keep in my heart.  
+Loving you feels natural. Effortless. Real.
+You inspire me to be better.
+You make my world feel complete.
 <br><br>
-On this birthday, I don’t just celebrate your age.  
-I celebrate your kindness, your strength, your beauty, and the love you give so effortlessly.
-<br><br>
-I am so proud of the woman you are becoming.
-And I promise to always be your biggest supporter.
-</div>
-</section>
-
-<!-- LOVE STORY TIMELINE -->
-<section>
-<h2>Our Love Story Timeline 🕰️</h2>
-<div class="timeline">
-<div class="card">💞 The day we started talking — I knew you were different.</div>
-<div class="card">✨ The first time you made me laugh — I got addicted.</div>
-<div class="card">💬 Late night talks — where we shared dreams and fears.</div>
-<div class="card">❤️ The moment I realized I was falling for you.</div>
-<div class="card">👑 Today — celebrating the most important person in my life.</div>
+On your birthday, I just want you to know:
+You are deeply loved.
+You are appreciated.
+And you are my greatest blessing.
 </div>
 </section>
 
@@ -167,31 +140,33 @@ And I promise to always be your biggest supporter.
 <!-- OPEN WHEN LETTERS -->
 <section>
 <h2>Open When... 💌</h2>
+
 <button onclick="toggle('sad')">You're Sad</button>
 <div id="sad" class="card hidden">
-Remember, even on your worst days, you are still the most beautiful soul I know. I’m always here.
+Even on your worst days, you are still the most amazing woman I know. I will always be here.
 </div>
 
 <button onclick="toggle('miss')">You Miss Me</button>
 <div id="miss" class="card hidden">
-Close your eyes. Imagine me hugging you tight. I miss you too, always.
+Imagine me holding your hand and telling you everything will be okay. I miss you too.
 </div>
 
 <button onclick="toggle('doubt')">You Doubt Yourself</button>
 <div id="doubt" class="card hidden">
-You are strong, capable, and unstoppable. Never forget who you are.
+You are strong, capable, and beautiful beyond words. Never question your worth.
 </div>
+
 </section>
 
-<!-- FUTURE DREAMS -->
+<!-- FUTURE -->
 <section>
-<h2>Our Future 🌹</h2>
+<h2>Our Future Together 🌹</h2>
 <div class="card">
-I see us traveling together.  
-Growing together.  
-Building dreams together.  
-Celebrating more birthdays side by side.  
-And one day, telling our kids how our love started.
+I see more birthdays together.  
+More laughs.  
+More late-night talks.  
+More dreams turning into reality.  
+And no matter what happens, I promise to always choose you.
 </div>
 </section>
 
@@ -201,13 +176,17 @@ And one day, telling our kids how our love started.
 <button onclick="showSurprise()">Click Me 👀</button>
 </section>
 
+<!-- MODAL -->
 <div id="modal" class="modal hidden">
-<div class="modal-content">
-<h3>I Choose You ❤️</h3>
-<p>Not just today. Not just on your birthday.  
-But every single day.</p>
-<button onclick="closeModal()">Close</button>
-</div>
+  <div class="modal-content">
+    <h3>I Choose You ❤️</h3>
+    <p>
+      Not just today.  
+      Not just on your birthday.  
+      But every single day.
+    </p>
+    <button class="close-btn" onclick="closeModal()">Close</button>
+  </div>
 </div>
 
 <script>
@@ -217,31 +196,15 @@ function scrollToSection(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-// Countdown
-const birthday = new Date("February 19, 2026 00:00:00").getTime();
-
-setInterval(()=>{
-  const now = new Date().getTime();
-  const distance = birthday - now;
-
-  const days = Math.floor(distance/(1000*60*60*24));
-  const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-  const seconds = Math.floor((distance%(1000*60))/1000);
-
-  document.getElementById("countdown").innerHTML =
-  days+"d "+hours+"h "+minutes+"m "+seconds+"s";
-},1000);
-
 // Love generator
 const reasons=[
 "You make my world brighter.",
 "Your smile fixes my bad days.",
 "You care so deeply.",
-"You understand me.",
+"You understand me like no one else.",
 "You are beautiful inside and out.",
 "You support my dreams.",
-"You make love feel easy."
+"You make love feel safe and real."
 ];
 
 function generateLove(){
@@ -254,10 +217,11 @@ function toggle(id){
   document.getElementById(id).classList.toggle("hidden");
 }
 
-// Surprise modal
+// Modal fix
 function showSurprise(){
   document.getElementById("modal").classList.remove("hidden");
 }
+
 function closeModal(){
   document.getElementById("modal").classList.add("hidden");
 }
