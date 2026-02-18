@@ -116,14 +116,14 @@ Every day with you feels like a blessing.
 <section>
 <h2>Why I Love You 💕</h2>
 <div class="card" id="loveReason">Click below 😌</div>
-<button onclick="generateLove()">Tell Me Why</button>
+<button id="loveBtn" onclick="generateLove()">Tell Me Why 💗</button>
 </section>
 
 <!-- LOVE FORTUNE -->
 <section>
 <h2>Love Fortune 🔮</h2>
 <div class="card" id="fortune">Click to see our future 👀</div>
-<button onclick="generateFortune()">Reveal Our Future</button>
+<button id="fortuneBtn" onclick="generateFortune()">Reveal Our Future 🔮</button>
 </section>
 
 <!-- LOVE METER -->
@@ -156,7 +156,7 @@ What day is your birthday? 😏
 
 <script>
 
-// Typewriter Effect
+/* ================= TYPEWRITER ================= */
 const text = "The world became brighter the day you were born. Today is all about you.";
 let index = 0;
 
@@ -169,12 +169,12 @@ function typeWriter(){
 }
 typeWriter();
 
-// Reveal Message
+/* ================= MESSAGE REVEAL ================= */
 function revealMessage(){
   document.getElementById("secretMessage").classList.remove("hidden");
 }
 
-// Love Generator
+/* ================= LOVE GENERATOR ================= */
 const reasons=[
 "You make my world brighter.",
 "Your smile heals my bad days.",
@@ -188,9 +188,12 @@ const reasons=[
 function generateLove(){
   const random = reasons[Math.floor(Math.random()*reasons.length)];
   document.getElementById("loveReason").innerText = random;
+
+  // Change button text after first click
+  document.getElementById("loveBtn").innerText = "Click More 💗";
 }
 
-// Fortune Generator
+/* ================= FORTUNE GENERATOR ================= */
 const fortunes=[
 "We will travel the world together.",
 "We will celebrate many birthdays side by side.",
@@ -202,9 +205,12 @@ const fortunes=[
 function generateFortune(){
   const random = fortunes[Math.floor(Math.random()*fortunes.length)];
   document.getElementById("fortune").innerText = random;
+
+  // Change button text after first click
+  document.getElementById("fortuneBtn").innerText = "Click More 🔮";
 }
 
-// Love Meter
+/* ================= LOVE METER ================= */
 let loveLevel = 0;
 
 function increaseLove(){
@@ -214,7 +220,7 @@ function increaseLove(){
   }
 }
 
-// Quiz
+/* ================= QUIZ ================= */
 function checkAnswer(correct){
   if(correct){
     document.getElementById("quizBox").innerHTML =
@@ -225,12 +231,12 @@ function checkAnswer(correct){
   }
 }
 
-// Mood changer
+/* ================= MOOD CHANGER ================= */
 function changeMood(color1,color2){
   document.body.style.background = `linear-gradient(135deg,${color1},${color2})`;
 }
 
-// Floating hearts
+/* ================= FLOATING HEARTS ================= */
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.classList.add("heart");
