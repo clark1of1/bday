@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Queen 👑❤️</title>
+<title>Happy 21st Birthday, Baby! ❤️</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
@@ -40,7 +40,7 @@ button:hover{transform:scale(1.1);box-shadow:0 0 15px #fff,0 0 20px #ff4e78;}
 
 <!-- HERO -->
 <section class="hidden">
-<h1>Happy Birthday, My Queen 👑❤️</h1>
+<h1>Happy Birthday, My Queen! ❤️</h1>
 <p id="typewriter"></p>
 </section>
 
@@ -56,8 +56,7 @@ button:hover{transform:scale(1.1);box-shadow:0 0 15px #fff,0 0 20px #ff4e78;}
 <section class="hidden">
 <h2>Special Message 💌</h2>
 <div class="card hidden" id="secretMessage">
-You are my peace, my happiness, and the best thing that ever happened to me.
-Every day with you feels like a blessing.
+Thank you so much for everything, baby. I will always love you, forever and ever!  
 </div>
 <button onclick="revealMessage()">Reveal Message 💖</button>
 </section>
@@ -86,25 +85,25 @@ Every day with you feels like a blessing.
 
 <!-- QUIZ -->
 <section class="hidden">
-<h2>How Well Do You Know Us? 🧠</h2>
+<h2>Hihi try mo to!!</h2>
 <div class="card" id="quizBox">
-What day is your birthday? 😏
+Do you love me? 💗
 <br><br>
-<button onclick="checkAnswer(true)">February 19</button>
-<button onclick="checkAnswer(false)">February 14</button>
+<button onclick="checkAnswer(true)">Yes</button>
+<button onclick="checkAnswer(false)">Oo</button>
 </div>
 </section>
 
 <!-- CHAT -->
 <section class="hidden">
 <h2>Chat With Me 💬</h2>
-<div class="chatBox" id="chatBox">Click below to see my messages 💌</div>
+<h1>Click below to see my messages 💌</h1>
 <button onclick="sendChat()">Next Message 💬</button>
 </section>
 
 <script>
 /* ================= PASSWORD ================= */
-const PASSWORD = "queen19"; // change this if you want
+const PASSWORD = "iloveyou"; // change this if you want
 const passwordScreen=document.getElementById('passwordScreen');
 const pwInput=document.getElementById('pwInput');
 const pwMsg=document.getElementById('pwMsg');
@@ -114,7 +113,7 @@ function checkPassword(){
     localStorage.setItem('accessGranted','true');
     unlockSite();
   }else{
-    pwMsg.innerText="Wrong password 😅 Try again!";
+    pwMsg.innerText="Wrong password 😅 Try again!" <br> "Hint: iloveyou";
     pwInput.value="";
   }
 }
@@ -134,7 +133,7 @@ function unlockSite(){
 }
 
 /* ================= TYPEWRITER ================= */
-const text="The world became brighter the day you were born. Today is all about you.";
+const text="Happy birthday, baby ko! I wish you the best and I'm always proud of you. Tumatanda na tayo, and my wish is good health and wealth for you. Andito ako lagi to support you baby, through ups and downs!";
 let index=0;
 function startTypewriter(){
   function typeWriter(){
@@ -169,23 +168,23 @@ function startBackgroundPulse(){
 // love, fortune, meter, chat, quiz, hearts (reuse previous code)...
 
 // LOVE REASONS
-const reasons=["You make my world brighter.","Your smile heals my bad days.","You understand me deeply.","You inspire me to be better.","You are beautiful inside and out.","You make love feel safe.","You are my greatest blessing."];
+const reasons=["Ikaw inspiration ko sa lahat ng bagay!","Yung smile mo, enough na para mapasaya ako.","Ikaw lang nakakaintindi at nakakapag-pakalma sakin.","Lagi mo binibigay best mo sakin.","Maganda ka, sa face card man o sa ugali.","You make me feel loved!","You are my greatest blessing, I swear baby."];
 function generateLove(){const random=reasons[Math.floor(Math.random()*reasons.length)];document.getElementById("loveReason").innerText=random;document.getElementById("loveBtn").innerText="Click More 💗";confettiBlast();createHeartParticle();}
 
 // LOVE FORTUNE
-const fortunes=["We will travel the world together.","We will celebrate many birthdays side by side.","We will achieve our dreams together.","We will build something beautiful together.","Our love will only grow stronger each year."];
+const fortunes=["We will travel the world togetherrrrr","We will celebrate many birthdays side by side!!!","We will achieve our dreams together and ieenjoy natin lahat!","Bubuo tayo ng peaceful household","Our love will only grow stronger each year, no more breakups!"];
 function generateFortune(){const random=fortunes[Math.floor(Math.random()*fortunes.length)];document.getElementById("fortune").innerText=random;document.getElementById("fortuneBtn").innerText="Click More 🔮";confettiBlast();createHeartParticle();}
 
 // LOVE METER
 let loveLevel=0;
-const loveMessages=["I love your smile 😍","I love the way you care for me 💕","I love your laughter that brightens my days 😂","I love your strength and courage 💪","I love how you make ordinary moments magical ✨","I love your heart, pure and kind ❤️","I love you more than words can ever say 💖"];
+const loveMessages=["Sige pindot!","Pindot paaaa!!!","Kulang pa yan!","Ano kaya pa ba?","Tsk sige pindot!","Lapit naaaaa","Joke lang! Never masusukat pagmamahal ko sayo dahil I love you more than anything!!!"];
 function increaseLove(){if(loveLevel<100){loveLevel+=100/loveMessages.length;document.getElementById("loveFill").style.width=loveLevel+"%";const idx=Math.floor(loveLevel/(100/loveMessages.length))-1;document.getElementById("loveDetails").innerText=loveMessages[idx];confettiBlast();createHeartParticle();}}
 
 // QUIZ
-function checkAnswer(correct){if(correct){document.getElementById("quizBox").innerHTML="Correct 😌 Of course you know your birthday. I love you!";confettiBlast();createHeartParticle();}else{document.getElementById("quizBox").innerHTML="Wrong 😅 but it's okay, I still love you.";}}
+function checkAnswer(correct){if(correct){document.getElementById("quizBox").innerHTML="I love you more! 😌";confettiBlast();createHeartParticle();}else{document.getElementById("quizBox").innerHTML="Hihi I love you more! 😌";}}
 
 // CHAT
-const chatMessages=["Hey Queen 😘","Happy Birthday my love! 🎉","You're my sunshine on dark days 🌞","Every moment with you is magical ✨","I can't wait to see you and hug you 🤗","You are my everything ❤️"];
+const chatMessages=["Hey Baby 😘","Happy Birthday my love! 🎉","You're the best girlfriend ever!","Wala akong masabi, ikaw na talaga gusto ko maging end game by.","I can't wait to see you later and kiss + hug you 🤗","You are my everything ❤️, I love you soooo much!"];
 let chatIndex=0;
 function sendChat(){if(chatIndex<chatMessages.length){document.getElementById("chatBox").innerHTML+="<div>"+chatMessages[chatIndex]+"</div>";chatIndex++;confettiBlast();createHeartParticle();}}
 
