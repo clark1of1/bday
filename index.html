@@ -132,6 +132,7 @@ Every day with you feels like a blessing.
 <div class="meter">
   <div class="fill" id="loveFill"></div>
 </div>
+<div class="card" id="loveDetails">Click the button to see why I love you more 😌</div>
 <button onclick="increaseLove()">Increase Love</button>
 </section>
 
@@ -210,13 +211,27 @@ function generateFortune(){
   document.getElementById("fortuneBtn").innerText = "Click More 🔮";
 }
 
-/* ================= LOVE METER ================= */
+/* ================= LOVE METER PROGRESSIVE ================= */
 let loveLevel = 0;
+const loveMessages = [
+  "I love your smile 😍",
+  "I love the way you care for me 💕",
+  "I love your laughter that brightens my days 😂",
+  "I love your strength and courage 💪",
+  "I love how you make ordinary moments magical ✨",
+  "I love your heart, pure and kind ❤️",
+  "I love you more than words can ever say 💖"
+];
 
 function increaseLove(){
   if(loveLevel < 100){
-    loveLevel += 10;
+    // Increase meter
+    loveLevel += 100 / loveMessages.length;
     document.getElementById("loveFill").style.width = loveLevel + "%";
+    
+    // Show next message progressively
+    const index = Math.floor(loveLevel / (100 / loveMessages.length)) - 1;
+    document.getElementById("loveDetails").innerText = loveMessages[index];
   }
 }
 
